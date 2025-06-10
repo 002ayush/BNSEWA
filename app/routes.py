@@ -5,6 +5,8 @@ from app.models import User
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from app.userProfile import UserProfile
 from flask import Blueprint
+from app.Lawyers import Lawyers
+
 import pickle
 
 routes = Blueprint('routes', __name__)
@@ -128,3 +130,19 @@ def predict():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+@routes.route('/lawyers', methods=['POST'])
+def add_lawyer():
+    data = request.json
+    lawyer = Lawyers(**data)
+    result = lawyer.save()
+    return jsonify(result)
+
+@routes.route('/lawyers', methods=['GET'])
+def get_all_lawyers():
+    return jsonify(Lawyers.find_all())
+
+@routes.route('/lawyers/<lawyer_id>', methods=['GET'])
+def get_lawyer(lawyer_id):
+    return jsonify(Lawyers.find_by_id(lawyer_id))
