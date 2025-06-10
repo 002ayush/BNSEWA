@@ -2,10 +2,11 @@ from app import mongo
 from bson import ObjectId
 
 class Lawyers:
-    def __init__(self, name, phone_no, email, city, registration_number,
+    def __init__(self, name,about, phone_no, email, city, registration_number,
                  bar_council_name, specialization, available_slots,
                  experience_years, active=False):
         self.name = name
+        self.about = about
         self.phone_no = phone_no
         self.email = email
         self.city = city
@@ -19,6 +20,7 @@ class Lawyers:
     def to_dict(self):
         return {
             "name": self.name,
+            "about": self.about,
             "phone_no": self.phone_no,
             "email": self.email,
             "city": self.city,
